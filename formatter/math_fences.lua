@@ -132,14 +132,17 @@ local function process_display_math(content)
   end)
 end
 
-local function convert_math_env(content)
-    -- 匹配 \[ ... \] 并转换为 \startformula...\stopformula
-    -- 处理可能存在的空格和换行
+local function convert_math_display(content)
     return content:gsub("\\%[%s*(.-)\\%s*%]", function(math_content)
-        -- 移除内容首尾的空白字符
         local trimmed = math_content:match("^%s*(.-)%s*$")
-        -- 构建新的公式环境，确保换行
         return "\\startformula\n"..trimmed.."\n\\stopformula"
+    end)
+end
+
+local function convert_math_inline(content)
+    return content:gsub("\\%(%s*(.-)\\%s*%)", function(math_content)
+        local trimmed = math_content:match("^%s*(.-)%s*$")
+        return "\\m{"..trimmed.."}"
     end)
 end
 
@@ -147,7 +150,8 @@ end
 function M.apply(content)
   content = process_inline_math(content)
   content = process_display_math(content)
-  content = convert_math_env(content)
+  content = convert_math_display(content)
+  content = convert_math_inline(content)
   return content
 end
 

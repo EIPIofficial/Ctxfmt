@@ -34,7 +34,8 @@ local function convert_sections(content)
     local command = {
       "chapter",
       "section",
-      "subsection"
+      "subsection",
+      "subsubsection"
     }
     for i = 1, #command do
       content = content:gsub("\\"..command[i].."%*", "\\"..command[i])

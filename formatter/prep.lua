@@ -2,10 +2,29 @@
 
 local M = {}
 
--- delete useless part
-local function remove_l(content)
+-- delete useless part1
+local function remove1(content)
   content = content:gsub("\\end{document}", "")
   local start_pos = content:find("\\maketitle")
+    
+  if not start_pos then
+      return content 
+  end
+    
+  local line_end = content:find("[\r\n]", start_pos)
+  if not line_end then
+      line_end = #content
+  else
+      line_end = line_end - 1
+  end
+    
+  return content:sub(line_end + 1)
+end
+
+-- delete useless part2
+local function remove2(content)
+  content = content:gsub("\\end{document}", "")
+  local start_pos = content:find("\\date{}")
     
   if not start_pos then
       return content 
@@ -54,7 +73,9 @@ end
 
 -- Main formatter
 function M.apply(content)
-  content     = remove_l(content)
+  -- content     = process_new_commands(content)
+  content     = remove1(content)
+  content     = remove2(content)
   content     = delete_lr(content)
   content     = add_title_wrapper(content)
   content     = change_align(content)

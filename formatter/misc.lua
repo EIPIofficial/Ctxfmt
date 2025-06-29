@@ -18,6 +18,7 @@ function M.apply(content)
   
   -- 4. Replace \emph with \mathit
   content = content:gsub("\\emph", "\\mathit")
+  content = content:gsub("\\textit", "\\mathit")
 
   -- 5. Replace \textbf with \mathbf
   content = content:gsub("\\textbf", "\\mathbf")
