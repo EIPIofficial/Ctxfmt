@@ -6,7 +6,7 @@ It is compatibility with [Simext](https://github.com/EIPIofficial/Simext).
 
 # Usage
 
-Submit a pdf to deepseek （With DeepThink(R1)) and let it convert it to latex. Create a tex document to copy it.
+Submit a pdf to deepseek （With DeepThink(R1)) and let it convert pdf into latex. Create a tex document to copy it.
 
 Run ctxfmt.lua using lua with the format “ctxfmt.lua [input.tex] [output.tex]".
 
